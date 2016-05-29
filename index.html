@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Clock</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="style/style.css">
+    <!--[if IE]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center">POMODORO CLOCK</h1>
+        <div class="row">
+            <div class="text-center col-md-6">
+                <span>SET BREAK TIME</span>
+                <br>
+                <span class="glyphicon glyphicon-minus-sign" id="brk-minus"></span><span id="break">5</span><span class="glyphicon glyphicon-plus-sign" id="brk-plus"></span>
+            </div>
+            <div class="text-center col-md-6">
+                <span>SET WORK TIME</span>
+                <br>
+                <span class="glyphicon glyphicon-minus-sign" id="wrk-minus"></span><span id="work">25</span><span class="glyphicon glyphicon-plus-sign" id="wrk-plus"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-center col-md-12">
+                <div class="display">
+                    <span id="current-task">WORK</span>
+                    <br>
+                    <span id="timer">25:00</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-right col-md-4 col-sm-4 col-xs-4">
+                <button type="button" class="btn btn-success" id="start">START</button>
+            </div>
+            <div class="text-center col-md-4 col-sm-4 col-xs-4">
+                <button type="button" class="btn btn-warning" id="pause">PAUSE</button>
+            </div>
+            <div class="text-left col-md-4 col-sm-4 col-xs-4">
+                <button type="button" class="btn btn-danger" id="reset">RESET</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="script/app.js"></script>
+    <script>
+        var reseted = true;
+        $('#start').on('click', function () {
+            time = $('#timer').text();
+            if (reseted) {
+                timer = new Countdown(time);
+                timer.init();
+            }
+            timer.start();
+            reseted = false;
+        });
+        $('#pause').on('click', function () {
+            timer.pause();
+        });
+        $('#reset').on('click', function () {
+            timer.reset();
+            reseted = true;
+            clearInterval(intr);
+            $('#current-task').text('WORK');
+        });
+    </script>
+</body>
+
+</html>
